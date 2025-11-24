@@ -10,9 +10,15 @@ export const DashboardLayout = () => {
  
   return (
     <div className="w-full flex h-screen overflow-hidden bg-semi_blue dark:bg-semi-dark text-white">
-      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      {/* HIDDEN: Sidebar */}
+      <div className="hidden">
+        <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      </div>
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header toggleSidebar={toggleSidebar}  />
+        {/* HIDDEN: Header */}
+        <div className="hidden">
+          <Header toggleSidebar={toggleSidebar}  />
+        </div>
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </main>

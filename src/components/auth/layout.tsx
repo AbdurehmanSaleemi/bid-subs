@@ -7,7 +7,7 @@ interface layoutProps {
 export const Layout = ({ children }: layoutProps) => {
   return (
     <>
-      <div className="relative min-h-screen  opacity-100 flex flex-col justify-center sm:items-start md:items-center lg:items-end sm:p-0 md:py-5 md:px-3">
+      <div className="relative min-h-screen  opacity-100 flex flex-col justify-center items-center sm:p-0 md:py-5 md:px-3">
         <div className="absolute inset-0 z-0 hidden md:block ">
           <Image
             src={Icons?.layoutBg}

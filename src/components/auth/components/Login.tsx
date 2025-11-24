@@ -1,59 +1,38 @@
-import { Input } from "@/common/Input/Input";
-import { useState } from "react";
 import { Icons } from "@/assets/Index";
-import { Checkbox } from "@/common/Input/Input";
-import { Link } from "react-router-dom";
-import Button from "@/common/Button";
+import { supabase } from "@/lib/supabase";
+import { useNavigate } from "react-router-dom";
 import { ROUTES_ENUM } from "@/constants/routes.constant";
+import Image from "@/common/image/Image";
+
 export const Login = () => {
-  const [payload, setPayload] = useState({
-    email: "",
-    password: "",
-    remember: true,
-  });
+  const navigate = useNavigate();
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}${ROUTES_ENUM.DASHBOARD}`
+        }
+      });
+      
+      if (error) {
+        console.error('Error logging in with Google:', error.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
-    <div className="flex flex-col gap-y-3">
-      <Input
-        value={payload?.email}
-        placeholder="Email"
-        icon={Icons?.email}
-        onChange={(e) => setPayload({ ...payload, email: e.target.value })}
-      />
-
-      <Input
-        value={payload?.password}
-        placeholder="Password"
-        type="password"
-        icon={Icons?.lock}
-        onChange={(e) => setPayload({ ...payload, password: e.target.value })}
-        showPasswordToggle={true}
-      />
-      <div className="flex justify-between items-center">
-        <div className="flex gap-x-3">
-          <Checkbox
-            value={payload?.remember}
-            onChange={(e) => {
-              setPayload({ ...payload, remember: e.target.checked });
-            }}
-          />
-
-          <label className="text-secondary dark:text-white text-sm">
-            Remember me
-          </label>
-        </div>
-        <Link
-          to={ROUTES_ENUM?.RES_PASSWORD}
-          className="text-secondary dark:text-white text-sm"
-        >
-          Forgot Password?
-        </Link>
-      </div>
-      <Link to={ROUTES_ENUM?.DASHBOARD} className="w-full">
-        <Button
-          label="Login"
-          className="bg-primary w-full text-white rounded-lg mt-4"
-        />
-      </Link>
+    <div className="flex items-center justify-center min-h-screen">
+      <button
+        onClick={handleGoogleLogin}
+        className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-3 transition-all hover:shadow-xl shadow-lg border border-gray-200 dark:border-gray-700"
+      >
+        <Image src={Icons?.google} className="h-6 w-6" />
+        Login with Google
+      </button>
     </div>
   );
 };

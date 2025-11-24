@@ -17,6 +17,7 @@ import { useState } from "react";
 import Button from "@/common/Button";
 import { ProjectUploadModalTwo } from "@/common/Model/UploadFileTwo";
 import { useSession } from "@/sessionManager/SessionContext";
+import Logo from "@/common/Logo";
 // TypeScript interfaces
 interface StatsCard {
   title: string;
@@ -85,9 +86,25 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {/* <div className="flex-1 flex flex-col overflow-hidden"> */}
-      <main className="flex-1 overflow-auto p-6 bg-white dark:bg-dark rounded-3xl">
-        {/* Welcome Message */}
-        <div className="mb-6 flex sm:flex-col gap-y-2 md:flex-row md:justify-between">
+      <main className="flex-1 overflow-auto p-6 bg-white dark:bg-dark flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center gap-8 w-full max-w-2xl">
+          {/* Centered Logo */}
+          <div className="transform hover:scale-105 transition-transform duration-300">
+            <Logo />
+          </div>
+          
+          {/* Centered Upload Button - Large */}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-primary text-white px-12 py-5 rounded-xl text-xl font-semibold flex items-center gap-3 transition-all hover:bg-primary/90 hover:shadow-2xl hover:scale-105 shadow-lg w-auto"
+          >
+          <Image src={Icons?.dash_upload_btn_icon} className="h-8 w-8" />
+          Upload Project
+        </button>
+        </div>
+        
+        {/* HIDDEN: Welcome Message */}
+        <div className="mb-6 flex sm:flex-col gap-y-2 md:flex-row md:justify-between hidden">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-secondary dark:text-white">
@@ -114,9 +131,9 @@ const Dashboard: React.FC = () => {
           </Button>
         </div>
 
-        {/* Project Info Cards */}
+        {/* HIDDEN: Project Info Cards */}
         {currentProject && (
-          <div className="mb-6">
+          <div className="mb-6 hidden">
             <h2 className="text-lg font-semibold text-black dark:text-white mb-4 flex items-center gap-2">
               <Building2 size={20} className="text-blue" />
               {currentProject.name}
@@ -215,8 +232,8 @@ const Dashboard: React.FC = () => {
           </div>
         )}
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+        {/* HIDDEN: Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8 hidden">
           {statsData.map((stat, index) => (
             <div
               key={index}
@@ -258,10 +275,10 @@ const Dashboard: React.FC = () => {
           ))}
         </div>
 
-        {/* Proposals Table */}
+        {/* HIDDEN: Proposals Table */}
         <div
           className={`
-            rounded-xl  overflow-hidden
+            rounded-xl  overflow-hidden hidden
           `}
         >
           <div className="p-6 ">
@@ -312,8 +329,8 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Notification Banner */}
-        <div className="mt-6 bg-semi_blue dark:bg-light_dark/50   !text-black dark:!text-white  rounded-lg p-4 flex items-center gap-3">
+        {/* HIDDEN: Notification Banner */}
+        <div className="mt-6 bg-semi_blue dark:bg-light_dark/50   !text-black dark:!text-white  rounded-lg p-4 flex items-center gap-3 hidden">
           <Edit3 size={20} className="text-primary" />
           <p className="text-sm ">
             You've used the same drywall template 6 times — want to save it as a

@@ -12,6 +12,7 @@ import { CreatePassword } from "./components/auth/components/CreatePassword";
 import { PasswordChange } from "./components/auth/components/PasswordChange";
 import { LoginAndSignUp } from "./components/auth/components/LoginAndSignUpLayout";
 import { SessionProvider } from "./sessionManager/SessionContext";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import Trades from "./components/trades/Trades";
 import Bids from "./components/bids/Bids";
 import BidDetails from "./components/bids/BidDetails";
@@ -43,7 +44,7 @@ function App() {
                 element={<ResetPassword />}
               />
             </Route>
-            <Route path={"/"} element={<DashboardLayout />}>
+            <Route path={"/"} element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
               <Route path={ROUTES_ENUM.DASHBOARD} element={<Dashboard />} />
               <Route path={ROUTES_ENUM.PROJECTS} element={<Projects />} /> 
               <Route path={ROUTES_ENUM.TRADES} element={<Trades />} />

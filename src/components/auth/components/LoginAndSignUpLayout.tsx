@@ -1,71 +1,51 @@
-import { Signup } from "./SignUp";
-import { Login } from "./Login";
-import SmoothTabs from "@/common/Tabs/Tabs";
 import { Icons } from "@/assets/Index";
 import Image from "@/common/image/Image";
 import { ButtonWithIcon } from "@/common/Button";
-import { useState } from "react";
 import { Layout } from "../layout";
+import { supabase } from "@/lib/supabase";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_ENUM } from "@/constants/routes.constant";
+
 export const LoginAndSignUp = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}${ROUTES_ENUM.DASHBOARD}`
+        }
+      });
+      
+      if (error) {
+        console.error('Error logging in with Google:', error.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
-  const tabItems = [
-    {
-      label: "Sign in",
-      content: <Login />,
-    },
-    {
-      label: "Sign up",
-      content: <Signup />,
-    },
-  ];
   return (
     <Layout>
-      <div className="sm:px-2 md:px-10">
-        <SmoothTabs
-          tabs={tabItems}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
-        <div className="flex flex-col w-full gap-y-3">
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)]">
+        <div className="w-full max-w-md flex flex-col items-center gap-y-8">
+          <div className="w-full flex flex-col items-center justify-center gap-y-2">
+            <h1 className="text-semi-dark dark:text-white text-3xl font-bold">
+              Login
+            </h1>
+            <p className="text-secondary dark:text-gray-400 text-sm text-center">
+              Welcome back! Please sign in to continue
+            </p>
+          </div>
+          
           <ButtonWithIcon
-            label="Continue with Google"
-            className="bg-semi_blue dark:bg-semi-dark rounded-lg text-semi-dark dark:text-white "
+            onClick={handleGoogleLogin}
+            label="Login with Google"
+            className="bg-white dark:bg-gray-800 rounded-lg text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all w-full py-3"
           >
             <Image src={Icons?.google} alt="google" className="h-6 w-6" />
           </ButtonWithIcon>
-          <ButtonWithIcon
-            label="Continue with LinkedIn"
-            className="bg-semi_blue dark:bg-semi-dark  rounded-lg text-semi-dark dark:text-white"
-          >
-            <Image src={Icons?.linkedIn} alt="linkdIn" className="h-6 w-6" />
-          </ButtonWithIcon>
-        </div>
-        <div className="w-full flex flex-col items-center justify-center gap-y-2 mt-4 mb-7 ">
-          <p className="text-semi-dark dark:text-white text-xl font-semibold">
-            {activeTab === 0 ? "Sign in to your account" : "Create your account"}
-          </p>
-          <p className="text-secondary dark:text-white text-sm">
-            {activeTab === 0 ? "Welcome back! Please enter your details" : "Please enter your details"}
-          </p>
-        </div>
-        <div className="relative">
-          {tabItems.map((tab: any, index: any) => (
-            <div
-              key={index}
-              className={`
-              absolute w-full transition-all duration-300 ease-out
-              ${
-                activeTab === index
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4 pointer-events-none"
-              }
-            `}
-            >
-              {tab.content}
-            </div>
-          ))}
         </div>
       </div>
     </Layout>

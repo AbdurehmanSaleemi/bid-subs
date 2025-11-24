@@ -112,7 +112,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
 
-        <nav className="p-4 space-y-2 flex-1">
+        {/* HIDDEN: Navigation Menu */}
+        <nav className="p-4 space-y-2 flex-1 hidden">
           {sidebarItems.map((item, index) => (
             <div key={index}>
               {item.section && (
@@ -133,8 +134,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           ))}
         </nav>
 
-        {/* Project Dropdown - Moved to bottom */}
-        <div className="p-4 mt-auto">
+        {/* HIDDEN: Project Dropdown - Moved to bottom */}
+        <div className="p-4 mt-auto hidden">
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
