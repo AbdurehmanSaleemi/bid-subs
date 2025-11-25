@@ -1,5 +1,9 @@
-// API Base URL - Update this to your backend URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// API Base URL - Must be set via VITE_API_URL environment variable
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+if (!API_BASE_URL) {
+  throw new Error('VITE_API_URL environment variable is not set. Please configure the backend API URL.');
+}
 
 export interface UploadResponse {
   file_id: string;

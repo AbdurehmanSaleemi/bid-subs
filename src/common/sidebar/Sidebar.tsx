@@ -11,7 +11,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES_ENUM } from "@/constants/routes.constant";
 import { useState, useEffect, useRef } from "react";
 import { useProject } from "@/hooks/useProject";
-import { FaUsers } from 'react-icons/fa';
 
 interface SidebarProps {
   toggleSidebar: () => void;

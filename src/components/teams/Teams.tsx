@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Mail, UserPlus, X, CheckCircle, Sun, Moon } from 'lucide-react';
+import { Mail, UserPlus, X, CheckCircle } from 'lucide-react';
 import { useSession } from '@/sessionManager/SessionContext';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Teams: React.FC = () => {
-  const { theme, toggleTheme } = useSession();
+  const { theme } = useSession();
   const [modalOpen, setModalOpen] = useState(false);
   const [emailInput, setEmailInput] = useState('');
   const [emails, setEmails] = useState<string[]>([]);

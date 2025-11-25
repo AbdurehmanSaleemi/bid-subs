@@ -3,11 +3,9 @@ import Image from "@/common/image/Image";
 import { ButtonWithIcon } from "@/common/Button";
 import { Layout } from "../layout";
 import { supabase } from "@/lib/supabase";
-import { useNavigate } from "react-router-dom";
 import { ROUTES_ENUM } from "@/constants/routes.constant";
 
 export const LoginAndSignUp = () => {
-  const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
     try {
